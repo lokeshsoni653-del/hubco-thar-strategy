@@ -144,14 +144,14 @@ with tab3:
     
     # UPGRADE: Added Mandarin Chinese translations with Pinyin
     mock_dhatki_data = {
-        "Mhara gaon mein paani ko maslo hai, RO plant kharab hai.": {
+        "Maaye gaon mein paani ko maslo hai, RO plant kharab hai.": {
             "english": "There is a water problem in our village, the RO plant is broken.",
             "chinese": "我们的村庄供水出现问题，反渗透水处理设备坏了。 (Wǒmen de cūnzhuāng gōngshuǐ chūxiàn wèntí...)",
             "category": "Maintenance - RO Plant",
             "priority": "🔴 High",
             "action": "Dispatch technician to Islamkot Block II"
         },
-        "Solar panel ri battery charge koni howay.": {
+        "Solar panel ri battery charge koni pyi they.": {
             "english": "The solar panel battery is not charging.",
             "chinese": "太阳能电池板的电池无法充电。 (Tàiyángnéng diànchí bǎn de diànchí wúfǎ chōngdiàn.)",
             "category": "Maintenance - Solar",
