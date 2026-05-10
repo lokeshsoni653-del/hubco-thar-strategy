@@ -1,3 +1,5 @@
+import folium
+from folium.plugins import HeatMap, Fullscreen, Draw
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -89,7 +91,13 @@ tab1, tab2, tab3, tab4 = st.tabs(["🗺️ Regional Deployment", "📊 CSR Finan
 
 with tab1:
     st.markdown("### Tharparkar Block II Intervention Map")
-    m = folium.Map(location=[24.7977, 70.1804], zoom_start=11, tiles="CartoDB positron")
+    
+    # UPGRADE: Changed to "dark_matter" for a sleek, modern Command Center look
+    m = folium.Map(location=[24.7977, 70.1804], zoom_start=11, tiles="CartoDB dark_matter")
+    
+    # UPGRADE: Add a Fullscreen button and Drawing Tools for BD Planners
+    Fullscreen(position='topright').add_to(m)
+    Draw(export=True, position='topleft', draw_options={'polyline':False, 'circlemarker':False}).add_to(m)
     
     # Scarcity Heatmap
     heat_data = [[row['Latitude'], row['Longitude'], row['Water_Scarcity_Index']] for index, row in df.iterrows()]
@@ -97,7 +105,7 @@ with tab1:
 
     # Plot Landmarks
     for name, coords in landmarks.items():
-        folium.Marker(coords, popup=f"<b>{name}</b>", icon=folium.Icon(color="black", icon="star", prefix='fa')).add_to(m)
+        folium.Marker(coords, popup=f"<b>{name}</b>", icon=folium.Icon(color="white", icon="star", prefix='fa')).add_to(m)
 
     # Plot Projects
     for idx, row in target_villages.iterrows():
@@ -106,7 +114,7 @@ with tab1:
         popup_text = f"<b>Village Pop:</b> {row['Village_Population']}<br><b>Project:</b> {row['Project_Type']}<br><b>Status:</b> {row['Status']}<br><b>CAPEX:</b> Rs. {row['Project_Cost']/1000000:.1f} M"
         folium.Marker([row['Latitude'], row['Longitude']], popup=popup_text, tooltip=row['Project_Type'], icon=folium.Icon(color=color, icon=icon_type, prefix='fa')).add_to(m)
 
-    st_folium(m, width=1200, height=450)
+    st_folium(m, width=1200, height=500)
 
 with tab2:
     st.markdown("### Business Development: CSR Allocation & ROI")
@@ -129,57 +137,62 @@ with tab2:
     """, unsafe_allow_html=True)
 
 with tab3:
-    st.markdown("### 🗣️ Local Dynamics: Dhatki AI Translator (PoC)")
-    st.write("A Proof of Concept (PoC) interface demonstrating how incoming SMS grievances from local Thar communities can be auto-translated and categorized for the English-speaking BD team.")
+    st.markdown("### 🗣️ Local Dynamics: Dhatki Multilingual AI (PoC)")
+    st.write("A Proof of Concept demonstrating how incoming SMS grievances from local communities can be auto-translated for English-speaking management and Chinese CPEC engineering teams.")
     
     st.markdown("#### 📥 Live SMS Grievance Inbox (Simulated)")
     
-    # Hardcoded "Mock" Data to simulate an AI's brain
+    # UPGRADE: Added Mandarin Chinese translations with Pinyin
     mock_dhatki_data = {
-        "Asaye gaon mein paani ko maslo hai, RO plant kharab hai.": {
+        "Mhara gaon mein paani ko maslo hai, RO plant kharab hai.": {
             "english": "There is a water problem in our village, the RO plant is broken.",
+            "chinese": "我们的村庄供水出现问题，反渗透水处理设备坏了。 (Wǒmen de cūnzhuāng gōngshuǐ chūxiàn wèntí...)",
             "category": "Maintenance - RO Plant",
             "priority": "🔴 High",
             "action": "Dispatch technician to Islamkot Block II"
         },
-        "Solar panel ri battery charge koni the pyi.": {
+        "Solar panel ri battery charge koni howay.": {
             "english": "The solar panel battery is not charging.",
+            "chinese": "太阳能电池板的电池无法充电。 (Tàiyángnéng diànchí bǎn de diànchí wúfǎ chōngdiàn.)",
             "category": "Maintenance - Solar",
             "priority": "🟡 Medium",
             "action": "Schedule battery replacement assessment"
         },
         "School mein master koni aayo aaj.": {
             "english": "The teacher did not come to the school today.",
+            "chinese": "今天老师没有来学校。 (Jīntiān lǎoshī méiyǒu lái xuéxiào.)",
             "category": "CSR - Education",
             "priority": "🟢 Low",
             "action": "Log for monthly Thar Foundation review"
         }
     }
     
-    # The interactive dropdown
     selected_phrase = st.selectbox("Select incoming SMS (Dhatki/Roman Script):", list(mock_dhatki_data.keys()))
     
-    # The "Magic" Button
+    # UPGRADE: Target Language Toggle
+    target_lang = st.radio("Select Target Output Language:", ["🇬🇧 English", "🇨🇳 Mandarin Chinese (CPEC Teams)"], horizontal=True)
+    
     if st.button("🧠 Process via NLP Translation Engine"):
-        with st.spinner("Routing through Dhatki-to-English translation pipeline..."):
+        with st.spinner(f"Routing through Dhatki-to-{target_lang.split(' ')[1]} translation pipeline..."):
             import time
-            time.sleep(1.5)  # Fakes the loading time of an AI model
+            time.sleep(1.5) 
             
             result = mock_dhatki_data[selected_phrase]
             
             st.success("✅ Translation and Intent Extraction Complete")
             
-            # Displaying the results in a clean, corporate layout
             colX, colY = st.columns(2)
             with colX:
-                st.markdown(f"**Translated Output (English):**\n> *{result['english']}*")
+                # Dynamically display the correct language based on the toggle
+                translation_text = result['english'] if "English" in target_lang else result['chinese']
+                st.markdown(f"**Translated Output:**\n> *{translation_text}*")
                 st.markdown(f"**Auto-Categorized As:** `{result['category']}`")
             with colY:
                 st.markdown(f"**System Priority:** {result['priority']}")
                 st.markdown(f"**Recommended Action:** {result['action']}")
                 
     st.divider()
-    st.info("💡 **Architecture Note:** This UI currently runs on simulated rule-based data. The architecture is designed to seamlessly integrate with a live LLM API once the Dhatki local-language dataset is fully compiled and trained by the HUBCO CSR team.")
+    st.info("💡 **Architecture Note:** This UI currently runs on simulated rule-based data. The architecture is designed to seamlessly integrate with a live Multilingual LLM API once the Dhatki dataset is fully compiled.")
 
 with tab4:
     st.markdown("### 📸 Field Operations (Mithi / Islamkot Hub)")
