@@ -92,10 +92,10 @@ tab1, tab2, tab3, tab4 = st.tabs(["🗺️ Regional Deployment", "📊 CSR Finan
 with tab1:
     st.markdown("### Tharparkar Block II Intervention Map")
     
-    # UPGRADE: Changed to "dark_matter" for a sleek, modern Command Center look
-    m = folium.Map(location=[24.7977, 70.1804], zoom_start=11, tiles="CartoDB dark_matter")
+    # REVERTED: Back to the clean, light-mode corporate map
+    m = folium.Map(location=[24.7977, 70.1804], zoom_start=11, tiles="CartoDB positron")
     
-    # UPGRADE: Add a Fullscreen button and Drawing Tools for BD Planners
+    # Kept the Planners' Fullscreen & Drawing tools
     Fullscreen(position='topright').add_to(m)
     Draw(export=True, position='topleft', draw_options={'polyline':False, 'circlemarker':False}).add_to(m)
     
@@ -105,14 +105,36 @@ with tab1:
 
     # Plot Landmarks
     for name, coords in landmarks.items():
-        folium.Marker(coords, popup=f"<b>{name}</b>", icon=folium.Icon(color="white", icon="star", prefix='fa')).add_to(m)
+        folium.Marker(coords, popup=f"<b>{name}</b>", icon=folium.Icon(color="black", icon="building", prefix='fa')).add_to(m)
 
-    # Plot Projects
+    # Plot Projects with Formal Executive Popups
     for idx, row in target_villages.iterrows():
         color = "lightgray" if row['Status'] == "Waitlisted" else ("blue" if row['Project_Type'] == "RO Water Plant" else "orange")
         icon_type = "tint" if row['Project_Type'] == "RO Water Plant" else "sun"
-        popup_text = f"<b>Village Pop:</b> {row['Village_Population']}<br><b>Project:</b> {row['Project_Type']}<br><b>Status:</b> {row['Status']}<br><b>CAPEX:</b> Rs. {row['Project_Cost']/1000000:.1f} M"
-        folium.Marker([row['Latitude'], row['Longitude']], popup=popup_text, tooltip=row['Project_Type'], icon=folium.Icon(color=color, icon=icon_type, prefix='fa')).add_to(m)
+        
+        # UPGRADE: Formal HTML Data Table for the Popup
+        html_card = f"""
+        <div style="font-family: Arial, sans-serif; width: 220px;">
+            <h4 style="margin-top: 0; margin-bottom: 8px; color: #0056b3; border-bottom: 2px solid #ccc; padding-bottom: 5px;">Site Intervention Audit</h4>
+            <table style="width: 100%; border-collapse: collapse; font-size: 12px; color: #333;">
+                <tr><td style="padding: 4px 0; font-weight: bold; width: 45%;">Project Type:</td><td style="padding: 4px 0;">{row['Project_Type']}</td></tr>
+                <tr><td style="padding: 4px 0; font-weight: bold;">Est. Population:</td><td style="padding: 4px 0;">{row['Village_Population']}</td></tr>
+                <tr><td style="padding: 4px 0; font-weight: bold;">Scarcity Index:</td><td style="padding: 4px 0;">{row['Water_Scarcity_Index']}/100</td></tr>
+                <tr><td style="padding: 4px 0; font-weight: bold;">Funding Status:</td><td style="padding: 4px 0;">{row['Status']}</td></tr>
+                <tr><td style="padding: 4px 0; font-weight: bold;">CAPEX Reqd:</td><td style="padding: 4px 0;">Rs. {row['Project_Cost']/1000000:.1f} M</td></tr>
+            </table>
+        </div>
+        """
+        
+        iframe = folium.IFrame(html=html_card, width=250, height=180)
+        formal_popup = folium.Popup(iframe, max_width=260)
+        
+        folium.Marker(
+            location=[row['Latitude'], row['Longitude']], 
+            popup=formal_popup, 
+            tooltip=row['Project_Type'], 
+            icon=folium.Icon(color=color, icon=icon_type, prefix='fa')
+        ).add_to(m)
 
     st_folium(m, width=1200, height=500)
 
