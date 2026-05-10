@@ -87,7 +87,7 @@ ro_count = len(funded_projects[funded_projects['Project_Type'] == "RO Water Plan
 solar_count = len(funded_projects[funded_projects['Project_Type'] == "Solar Microgrid"])
 
 # --- ENTERPRISE TABS ---
-tab1, tab2, tab3, tab4 = st.tabs(["🗺️ Regional Deployment", "📊 CSR Financials", "🤝 Community Dynamics", "📸 Field Audits"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["🗺️ Regional Deployment", "📊 CSR Financials", "🤝 Community Dynamics", "📸 Field Audits", "🛡️ Fleet Safety"])
 
 with tab1:
     st.markdown("### Tharparkar Block II Intervention Map")
@@ -223,3 +223,42 @@ with tab4:
     if site_photo:
         st.success("✅ Audit image verified from field location.")
         st.download_button("💾 Save to CSR Report", data=site_photo, file_name="Thar_Audit.png", mime="image/png")
+
+with tab5:
+    st.markdown("### 🛡️ Fleet Safety & Inclusion Hub")
+    st.write("Dedicated monitoring and emergency response interface for the Women Dump Truck Drivers initiative at Thar Coal Block II.")
+    
+    col_a, col_b, col_c = st.columns(3)
+    col_a.metric("Active Female Drivers", "42", "+3 this month")
+    col_b.metric("Current Shift", "Night Shift (18:00 - 06:00)", "High Alert")
+    col_c.metric("SOS Incidents (Last 30 Days)", "0", "-1", delta_color="inverse")
+    
+    st.markdown("#### 🚨 Emergency Dispatch Simulation")
+    st.info("In a live environment, this dashboard receives SOS signals triggered via physical panic buttons installed in the dump truck cabins.")
+    
+    # Simulated incoming SOS
+    sos_active = st.checkbox("Simulate Incoming SOS Alert")
+    
+    if sos_active:
+        st.error("**⚠️ URGENT SOS RECEIVED**")
+        st.markdown("""
+        * **Driver:** Samina B. (ID: T-409)
+        * **Vehicle:** 60-Ton Dump Truck #42
+        * **Location:** Block II, Sector 4, Decline Ramp
+        * **Trigger Type:** Cabin Panic Button
+        """)
+        
+        if st.button("Dispatch Rapid Response Team"):
+            with st.spinner("Pinging nearest security vehicle..."):
+                import time
+                time.sleep(1)
+                st.success("✅ Response Team Alpha dispatched. ETA: 3 Minutes. Live GPS tracking enabled.")
+    else:
+        st.success("All fleet operations are currently reporting normal status. No active SOS signals.")
+
+    st.divider()
+    st.markdown("#### 📱 Proposed Mobile Interface (Driver Side)")
+    st.write("A companion mobile app for the drivers would feature:")
+    st.markdown("- **One-Tap SOS:** Instant alert to this HQ dashboard with GPS coordinates.")
+    st.markdown("- **Dhatki/Sindhi Voice Commands:** 'Help' triggered via voice recognition if hands are occupied.")
+    st.markdown("- **Route Hazards:** Live alerts about unstable terrain or severe weather in the mining pit.")
