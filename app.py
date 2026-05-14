@@ -9,7 +9,7 @@ from streamlit_folium import st_folium
 import plotly.express as px
 import plotly.graph_objects as go
 from datetime import datetime
- 
+
 # ═══════════════════════════════════════════════════════════════
 #  PAGE CONFIGURATION
 # ═══════════════════════════════════════════════════════════════
@@ -19,7 +19,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
- 
+
 # ═══════════════════════════════════════════════════════════════
 #  DESIGN TOKENS & GLOBAL CSS
 # ═══════════════════════════════════════════════════════════════
@@ -27,11 +27,11 @@ st.markdown("""
 <style>
 /* ── Google Font ── */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
- 
+
 /* ── Hide Streamlit chrome ── */
 #MainMenu, footer, header { visibility: hidden; }
 .stDeployButton { display: none; }
- 
+
 /* ── Root Variables ── */
 :root {
     --navy-950:  #030B1A;
@@ -65,13 +65,13 @@ st.markdown("""
     --r-md: 7px;
     --shadow: 0 4px 24px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.3);
 }
- 
+
 /* ── App Background ── */
 .stApp {
     background: linear-gradient(160deg, #040d20 0%, #060f28 40%, #040b1c 100%);
     font-family: 'DM Sans', system-ui, sans-serif;
 }
- 
+
 /* ── Sidebar ── */
 [data-testid="stSidebar"] {
     background: linear-gradient(180deg, #05112F 0%, #040d1f 100%) !important;
@@ -84,13 +84,13 @@ st.markdown("""
 [data-testid="stSidebar"] .stSlider > label,
 [data-testid="stSidebar"] .stNumberInput > label { color: var(--text-sec) !important; font-size: 0.78rem !important; font-weight: 500 !important; text-transform: uppercase; letter-spacing: 0.06em; }
 [data-testid="stSidebar"] hr { border-color: var(--border-md) !important; }
- 
+
 /* ── Slider thumb amber ── */
 [data-testid="stSidebar"] [data-testid="stSlider"] [role="slider"] {
     background: var(--gold) !important;
     box-shadow: 0 0 8px rgba(212,175,55,0.6) !important;
 }
- 
+
 /* ── Tabs ── */
 .stTabs [data-baseweb="tab-list"] {
     background: rgba(255,255,255,0.03) !important;
@@ -122,10 +122,10 @@ st.markdown("""
     border-radius: 0 0 var(--r-xl) var(--r-xl) !important;
     padding: 24px !important;
 }
- 
+
 /* ── Plotly charts transparent bg ── */
 .js-plotly-plot .plotly { background: transparent !important; }
- 
+
 /* ── Metrics override ── */
 [data-testid="stMetric"] {
     background: var(--slate-800) !important;
@@ -160,7 +160,7 @@ st.markdown("""
     font-size: 0.75rem !important;
     font-weight: 600 !important;
 }
- 
+
 /* ── st.info / st.success / st.error ── */
 [data-testid="stInfo"] {
     background: rgba(13,148,136,0.08) !important;
@@ -179,7 +179,7 @@ st.markdown("""
     border: 1px solid rgba(248,113,113,0.25) !important;
     border-radius: var(--r-lg) !important;
 }
- 
+
 /* ── Buttons ── */
 .stButton > button {
     background: linear-gradient(135deg, var(--amber-500), var(--gold)) !important;
@@ -198,7 +198,7 @@ st.markdown("""
     box-shadow: 0 4px 22px rgba(212,175,55,0.55) !important;
     transform: translateY(-1px) !important;
 }
- 
+
 /* ── Selectbox / Radio ── */
 [data-testid="stSelectbox"] > div,
 [data-testid="stSelectbox"] select {
@@ -210,14 +210,14 @@ st.markdown("""
 }
 [data-testid="stRadio"] label { color: var(--text-sec) !important; font-size: 0.83rem !important; }
 [data-testid="stRadio"] [data-testid="stMarkdownContainer"] { color: var(--text-sec) !important; }
- 
+
 /* ── Camera input ── */
 [data-testid="stCameraInput"] {
     border: 1px solid var(--border-md) !important;
     border-radius: var(--r-lg) !important;
     overflow: hidden !important;
 }
- 
+
 /* ── Download button ── */
 [data-testid="stDownloadButton"] > button {
     background: rgba(212,175,55,0.12) !important;
@@ -225,11 +225,11 @@ st.markdown("""
     color: var(--gold) !important;
     border-radius: var(--r-md) !important;
 }
- 
+
 /* ── Checkboxes ── */
 [data-testid="stCheckbox"] label { color: var(--text-sec) !important; }
 [data-testid="stCheckbox"] [data-testid="stMarkdownContainer"] { color: var(--text-sec) !important; }
- 
+
 /* ── Markdown text in main area ── */
 .main [data-testid="stMarkdownContainer"] h1,
 .main [data-testid="stMarkdownContainer"] h2,
@@ -246,18 +246,18 @@ st.markdown("""
     font-size: 0.82em !important;
     padding: 2px 6px !important;
 }
- 
+
 /* ── Divider ── */
 hr { border-color: var(--border-md) !important; }
- 
+
 /* ── Caption text ── */
 [data-testid="stCaptionContainer"] { color: var(--text-mut) !important; font-size: 0.75rem !important; }
- 
+
 /* ── Column gaps ── */
 [data-testid="column"] { padding: 0 6px !important; }
 </style>
 """, unsafe_allow_html=True)
- 
+
 # ═══════════════════════════════════════════════════════════════
 #  PLOTLY THEME HELPER
 # ═══════════════════════════════════════════════════════════════
@@ -290,7 +290,7 @@ AMBER  = "#D4AF37"
 BLUE   = "#3B82F6"
 ORANGE = "#F5A623"
 TEAL   = "#2DD4BF"
- 
+
 # ═══════════════════════════════════════════════════════════════
 #  HEADER
 # ═══════════════════════════════════════════════════════════════
@@ -333,7 +333,7 @@ st.markdown("""
     </div>
 </div>
 """, unsafe_allow_html=True)
- 
+
 # ═══════════════════════════════════════════════════════════════
 #  DATA SIMULATION (unchanged logic, seed=42)
 # ═══════════════════════════════════════════════════════════════
@@ -348,15 +348,15 @@ def load_thar_data():
         'Latitude': lats, 'Longitude': lons,
         'Water_Scarcity_Index': water_scarcity, 'Village_Population': population
     })
- 
+
 df = load_thar_data()
- 
+
 landmarks = {
     "HUBCO Thar Energy Ltd (TEL)": [24.7977, 70.2808],
     "Mithi (Regional Hub)":        [24.7370, 69.7971],
     "Islamkot":                    [24.7946, 70.1804]
 }
- 
+
 # ═══════════════════════════════════════════════════════════════
 #  SIDEBAR
 # ═══════════════════════════════════════════════════════════════
@@ -377,20 +377,20 @@ with st.sidebar:
     </div>
     <hr style="border-color:rgba(255,255,255,0.08); margin: 0 0 16px;">
     """, unsafe_allow_html=True)
- 
+
     st.markdown("### 📈 BD & CSR Budget (FY-26)")
     csr_budget = st.slider("Total Allocation (Millions PKR)", 50, 500, 150) * 1_000_000
- 
+
     st.markdown("### 🏗️ Infrastructure Costs")
     cost_ro_plant = st.number_input("Cost per RO Water Plant (PKR)", value=8_000_000, step=500_000)
     cost_solar    = st.number_input("Cost per Solar Microgrid (PKR)", value=12_000_000, step=500_000)
- 
+
     st.markdown("### 🎯 Intervention Targeting")
     min_scarcity = st.slider("Target Minimum Water Scarcity", 0, 100, 75)
     min_pop      = st.slider("Target Minimum Population", 500, 5000, 1500)
- 
+
     st.divider()
- 
+
     # Developer card
     st.markdown("""
     <div style="
@@ -412,7 +412,7 @@ with st.sidebar:
         Strategic Focus: Block II &amp; Surrounding Communities
     </div>
     """, unsafe_allow_html=True)
- 
+
 # ═══════════════════════════════════════════════════════════════
 #  ALGORITHM LOGIC (unchanged)
 # ═══════════════════════════════════════════════════════════════
@@ -420,7 +420,7 @@ target_villages = df[
     (df['Water_Scarcity_Index'] >= min_scarcity) &
     (df['Village_Population']   >= min_pop)
 ].copy()
- 
+
 target_villages = target_villages.sort_values('Water_Scarcity_Index', ascending=False)
 target_villages['Project_Type'] = np.where(
     target_villages['Water_Scarcity_Index'] > 85, "RO Water Plant", "Solar Microgrid"
@@ -432,14 +432,14 @@ target_villages['Cumulative_Cost'] = target_villages['Project_Cost'].cumsum()
 target_villages['Status'] = np.where(
     target_villages['Cumulative_Cost'] <= csr_budget, "Approved (Funded)", "Waitlisted"
 )
- 
+
 funded_projects = target_villages[target_villages['Status'] == "Approved (Funded)"]
 total_capex      = funded_projects['Project_Cost'].sum()
 lives_impacted   = funded_projects['Village_Population'].sum()
 ro_count         = len(funded_projects[funded_projects['Project_Type'] == "RO Water Plant"])
 solar_count      = len(funded_projects[funded_projects['Project_Type'] == "Solar Microgrid"])
 budget_pct       = int((total_capex / csr_budget) * 100) if csr_budget else 0
- 
+
 # ═══════════════════════════════════════════════════════════════
 #  TOP-LEVEL KPI STRIP (above tabs)
 # ═══════════════════════════════════════════════════════════════
@@ -452,9 +452,9 @@ with kpi3:
     st.metric("💰 CAPEX Utilized",       f"Rs. {total_capex/1e6:.1f} M",  f"{budget_pct}% of budget")
 with kpi4:
     st.metric("⚡ Projects Deployed",    f"{ro_count} RO · {solar_count} Solar", "Active CSR footprint")
- 
+
 st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
- 
+
 # ═══════════════════════════════════════════════════════════════
 #  SECTION LABEL HELPER
 # ═══════════════════════════════════════════════════════════════
@@ -465,7 +465,7 @@ def section_label(text):
                 margin:0 0 12px; padding-left:2px;">
         {text}
     </div>""", unsafe_allow_html=True)
- 
+
 def card_header(title, subtitle=""):
     sub = f"<div style='font-size:.78rem;color:#5C6480;margin-top:2px'>{subtitle}</div>" if subtitle else ""
     st.markdown(f"""
@@ -473,7 +473,7 @@ def card_header(title, subtitle=""):
                 color:#E8EAF2; letter-spacing:.02em; margin-bottom:14px;">
         {title}{sub}
     </div>""", unsafe_allow_html=True)
- 
+
 def esg_box(html_content):
     st.markdown(f"""
     <div style="
@@ -484,7 +484,7 @@ def esg_box(html_content):
     ">
         {html_content}
     </div>""", unsafe_allow_html=True)
- 
+
 # ═══════════════════════════════════════════════════════════════
 #  ENTERPRISE TABS
 # ═══════════════════════════════════════════════════════════════
@@ -495,13 +495,13 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "📸  Field Audits",
     "🛡️  Fleet Safety"
 ])
- 
+
 # ───────────────────────────────────────────────────────────────
 #  TAB 1 — REGIONAL DEPLOYMENT
 # ───────────────────────────────────────────────────────────────
 with tab1:
     section_label("Tharparkar Block II · Intervention Deployment Map")
- 
+
     st.markdown("""
     <div style="
         display:flex; gap:20px; margin-bottom:16px; flex-wrap:wrap;
@@ -524,22 +524,22 @@ with tab1:
         </div>
     </div>
     """, unsafe_allow_html=True)
- 
+
     m = folium.Map(location=[24.7977, 70.1804], zoom_start=11, tiles="CartoDB positron")
     Fullscreen(position='topright').add_to(m)
     Draw(export=True, position='topleft', draw_options={'polyline': False, 'circlemarker': False}).add_to(m)
- 
+
     heat_data = [[row['Latitude'], row['Longitude'], row['Water_Scarcity_Index']]
                  for _, row in df.iterrows()]
     HeatMap(heat_data, radius=15, blur=10,
             gradient={0.4: 'blue', 0.65: 'yellow', 1: 'red'}).add_to(m)
- 
+
     for name, coords in landmarks.items():
         folium.Marker(
             coords, popup=f"<b style='color:#0056b3'>{name}</b>",
             icon=folium.Icon(color="black", icon="building", prefix='fa')
         ).add_to(m)
- 
+
     for idx, row in target_villages.iterrows():
         color     = "lightgray" if row['Status'] == "Waitlisted" else ("blue" if row['Project_Type'] == "RO Water Plant" else "orange")
         icon_type = "tint" if row['Project_Type'] == "RO Water Plant" else "sun"
@@ -569,17 +569,17 @@ with tab1:
             tooltip=row['Project_Type'],
             icon=folium.Icon(color=color, icon=icon_type, prefix='fa')
         ).add_to(m)
- 
+
     st_folium(m, width="100%", height=500)
- 
+
 # ───────────────────────────────────────────────────────────────
 #  TAB 2 — CSR FINANCIALS
 # ───────────────────────────────────────────────────────────────
 with tab2:
     section_label("Business Development · CSR Allocation & ROI")
- 
+
     col_left, col_right = st.columns([1.1, 1], gap="large")
- 
+
     with col_left:
         card_header("CSR Fund Distribution by Type", "CAPEX breakdown across intervention categories")
         if not funded_projects.empty:
@@ -603,17 +603,17 @@ with tab2:
             st.plotly_chart(fig_donut, use_container_width=True)
         else:
             st.info("No funded projects match the current filter criteria.")
- 
+
     with col_right:
         card_header("Budget Utilization Breakdown", "Funded vs. available allocation")
- 
+
         # Budget progress bar visual
         ro_capex    = ro_count    * cost_ro_plant
         solar_capex = solar_count * cost_solar
         ro_pct      = min(int((ro_capex    / csr_budget) * 100), 100) if csr_budget else 0
         solar_pct   = min(int((solar_capex / csr_budget) * 100), 100) if csr_budget else 0
         total_pct   = min(budget_pct, 100)
- 
+
         def progress_row(label, pct, color, val_text):
             st.markdown(f"""
             <div style="margin-bottom:14px">
@@ -627,32 +627,32 @@ with tab2:
                                 transition:width .5s ease"></div>
                 </div>
             </div>""", unsafe_allow_html=True)
- 
+
         progress_row("RO Water Plants",  ro_pct,    f"linear-gradient(90deg,{BLUE},{TEAL})",   f"Rs. {ro_capex/1e6:.1f}M")
         progress_row("Solar Microgrids", solar_pct, f"linear-gradient(90deg,{ORANGE},{AMBER})",f"Rs. {solar_capex/1e6:.1f}M")
         progress_row("Total Budget Used",total_pct, f"linear-gradient(90deg,#DC2626,{ORANGE})",f"{total_pct}%")
- 
-       cost_per_life = int(total_capex / lives_impacted) if lives_impacted else 0
+
+        cost_per_life = int(total_capex / lives_impacted) if lives_impacted else 0
         esg_box(f"""
-<div style="font-size:.72rem;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">
-    📌 Cost per Life Impacted
-</div>
-<div style="font-size:1.6rem;font-weight:700;color:#F5A623;margin-bottom:4px">
-    Rs. {cost_per_life:,}
-</div>
-<div style="font-size:.75rem;color:#9BA3BF">
-    PKR per beneficiary &nbsp;·&nbsp; World Bank ESG threshold: &lt; Rs. 15,000
-</div>
-""")
- 
+            <div style="font-size:.72rem;font-weight:700;color:#D4AF37;
+                        text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">
+                📌 Cost per Life Impacted
+            </div>
+            <div style="font-size:1.6rem;font-weight:700;color:#F5A623;margin-bottom:4px">
+                Rs. {cost_per_life:,}
+            </div>
+            <div style="font-size:.75rem;color:#9BA3BF">
+                PKR per beneficiary &nbsp;·&nbsp; World Bank ESG threshold: &lt; Rs. 15,000
+            </div>""")
+
     st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
- 
+
     # Cumulative CAPEX line chart
     if not target_villages.empty:
         section_label("Cumulative CAPEX vs. Budget Ceiling")
         target_sorted = target_villages.copy().reset_index(drop=True)
         target_sorted['Site #'] = target_sorted.index + 1
- 
+
         fig_line = go.Figure()
         fig_line.add_trace(go.Scatter(
             x=target_sorted['Site #'],
@@ -675,7 +675,7 @@ with tab2:
             showlegend=False,
         )
         st.plotly_chart(fig_line, use_container_width=True)
- 
+
     esg_box(f"""
         <h4 style="margin:0 0 6px;font-size:.9rem;color:#D4AF37;">🌱 Thar Foundation Impact Statement</h4>
         <p style="margin:0;font-size:.85rem;color:#9BA3BF;line-height:1.65">
@@ -684,7 +684,7 @@ with tab2:
             standards of <b style="color:#F5A623">{lives_impacted:,}</b> residents in the Thar Coal Block II
             radius, securing vital community goodwill and fulfilling corporate ESG mandates.
         </p>""")
- 
+
 # ───────────────────────────────────────────────────────────────
 #  TAB 3 — COMMUNITY DYNAMICS
 # ───────────────────────────────────────────────────────────────
@@ -695,9 +695,9 @@ with tab3:
         A Proof of Concept demonstrating how incoming SMS grievances from local communities can be
         auto-translated for English-speaking management and Chinese CPEC engineering teams.
     </p>""", unsafe_allow_html=True)
- 
+
     col_inbox, col_output = st.columns([1, 1], gap="large")
- 
+
     mock_dhatki_data = {
         "Maaye gaon mein paani ko maslo hai, RO plant kharab hai.": {
             "english": "There is a water problem in our village, the RO plant is broken.",
@@ -721,7 +721,7 @@ with tab3:
             "action": "Log for monthly Thar Foundation review"
         }
     }
- 
+
     with col_inbox:
         card_header("📥 Live SMS Grievance Inbox", "Simulated · Dhatki / Roman Script")
         selected_phrase = st.selectbox(
@@ -732,7 +732,7 @@ with tab3:
             horizontal=True
         )
         process_btn = st.button("🧠 Process via NLP Translation Engine")
- 
+
     with col_output:
         card_header("Translation Output", "Intent extraction + priority routing")
         if process_btn:
@@ -784,16 +784,16 @@ with tab3:
                     Select a grievance and click Process
                 </div>
             </div>""", unsafe_allow_html=True)
- 
+
     st.divider()
     st.info("💡 **Architecture Note:** This UI currently runs on simulated rule-based data. The architecture is designed to seamlessly integrate with a live Multilingual LLM API once the Dhatki dataset is fully compiled.")
- 
+
 # ───────────────────────────────────────────────────────────────
 #  TAB 4 — FIELD AUDITS
 # ───────────────────────────────────────────────────────────────
 with tab4:
     section_label("Field Operations · Mithi / Islamkot Hub")
- 
+
     col_cam, col_info = st.columns([1, 1], gap="large")
     with col_cam:
         card_header("📸 Site Audit Camera", "Capture groundwater drilling site audits")
@@ -803,7 +803,7 @@ with tab4:
             st.success("✅ Audit image verified from field location.")
             st.download_button("💾 Save to CSR Report", data=site_photo,
                                file_name="Thar_Audit.png", mime="image/png")
- 
+
     with col_info:
         card_header("📋 Audit Protocol", "Standard pre-deployment site checklist")
         st.markdown("""
@@ -827,7 +827,7 @@ with tab4:
                 </div>
             </div>""", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
- 
+
 # ───────────────────────────────────────────────────────────────
 #  TAB 5 — FLEET SAFETY
 # ───────────────────────────────────────────────────────────────
@@ -838,7 +838,7 @@ with tab5:
         Dedicated monitoring and emergency response interface for the
         <b style="color:#E8EAF2">Women Dump Truck Drivers Initiative</b> at Thar Coal Block II.
     </p>""", unsafe_allow_html=True)
- 
+
     # Fleet KPIs with custom styling
     fa, fb, fc = st.columns(3)
     with fa:
@@ -847,16 +847,16 @@ with tab5:
         st.metric("Current Shift",              "Night (18:00–06:00)",    "High Alert")
     with fc:
         st.metric("SOS Incidents (Last 30 Days)", "0",                    "-1", delta_color="inverse")
- 
+
     st.markdown("<div style='height:16px'></div>", unsafe_allow_html=True)
- 
+
     col_sos, col_mobile = st.columns([1, 1], gap="large")
- 
+
     with col_sos:
         card_header("🚨 Emergency Dispatch Simulation")
         st.info("In a live environment, this dashboard receives SOS signals triggered via physical panic buttons installed in the dump truck cabins.")
         sos_active = st.checkbox("Simulate Incoming SOS Alert")
- 
+
         if sos_active:
             st.markdown("""
             <div style="
@@ -878,14 +878,14 @@ with tab5:
                          <div style="font-size:.85rem;color:#F87171;font-weight:600">Cabin Panic Button</div></div>
                 </div>
             </div>""", unsafe_allow_html=True)
- 
+
             if st.button("🚑 Dispatch Rapid Response Team"):
                 with st.spinner("Pinging nearest security vehicle..."):
                     import time; time.sleep(1)
                 st.success("✅ Response Team Alpha dispatched. ETA: 3 Minutes. Live GPS tracking enabled.")
         else:
             st.success("✅ All fleet operations are currently reporting normal status. No active SOS signals.")
- 
+
     with col_mobile:
         card_header("📱 Proposed Mobile Interface (Driver Side)", "Companion app feature set")
         features = [
