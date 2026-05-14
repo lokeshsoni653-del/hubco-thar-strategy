@@ -632,18 +632,18 @@ with tab2:
         progress_row("Solar Microgrids", solar_pct, f"linear-gradient(90deg,{ORANGE},{AMBER})",f"Rs. {solar_capex/1e6:.1f}M")
         progress_row("Total Budget Used",total_pct, f"linear-gradient(90deg,#DC2626,{ORANGE})",f"{total_pct}%")
  
-        cost_per_life = int(total_capex / lives_impacted) if lives_impacted else 0
+       cost_per_life = int(total_capex / lives_impacted) if lives_impacted else 0
         esg_box(f"""
-            <div style="font-size:.72rem;font-weight:700;color:#D4AF37;
-                        text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">
-                📌 Cost per Life Impacted
-            </div>
-            <div style="font-size:1.6rem;font-weight:700;color:#F5A623;margin-bottom:4px">
-                Rs. {cost_per_life:,}
-            </div>
-            <div style="font-size:.75rem;color:#9BA3BF">
-                PKR per beneficiary &nbsp;·&nbsp; World Bank ESG threshold: &lt; Rs. 15,000
-            </div>""")
+<div style="font-size:.72rem;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">
+    📌 Cost per Life Impacted
+</div>
+<div style="font-size:1.6rem;font-weight:700;color:#F5A623;margin-bottom:4px">
+    Rs. {cost_per_life:,}
+</div>
+<div style="font-size:.75rem;color:#9BA3BF">
+    PKR per beneficiary &nbsp;·&nbsp; World Bank ESG threshold: &lt; Rs. 15,000
+</div>
+""")
  
     st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
  
