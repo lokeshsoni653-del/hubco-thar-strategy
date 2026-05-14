@@ -3,8 +3,6 @@ from folium.plugins import HeatMap, Fullscreen, Draw
 import streamlit as st
 import pandas as pd
 import numpy as np
-import folium
-from folium.plugins import HeatMap
 from streamlit_folium import st_folium
 import plotly.express as px
 import plotly.graph_objects as go
@@ -363,20 +361,20 @@ landmarks = {
 with st.sidebar:
     # Logo area
     st.markdown("""
-    <div style="text-align:center; padding: 8px 0 16px;">
-        <div style="font-size:2.4rem; margin-bottom:6px;">🏜️</div>
-        <div style="font-family:'DM Sans',sans-serif; font-size:1.0rem; font-weight:800;
-                    color:#E8EAF2; letter-spacing:-0.01em;">HUBCO Thar</div>
-        <div style="font-family:'DM Sans',sans-serif; font-size:0.68rem; font-weight:700;
-                    color:#D4AF37; text-transform:uppercase; letter-spacing:.12em;">Strategy Engine</div>
-        <div style="margin-top:10px; padding:4px 12px; border-radius:99px;
-                    background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.2);
-                    display:inline-block; font-size:0.68rem; font-weight:600; color:#F5A623;">
-            Block II · Tharparkar
-        </div>
+<div style="text-align:center; padding: 8px 0 16px;">
+    <div style="font-size:2.4rem; margin-bottom:6px;">🏜️</div>
+    <div style="font-family:'DM Sans',sans-serif; font-size:1.0rem; font-weight:800;
+                color:#E8EAF2; letter-spacing:-0.01em;">HUBCO Thar</div>
+    <div style="font-family:'DM Sans',sans-serif; font-size:0.68rem; font-weight:700;
+                color:#D4AF37; text-transform:uppercase; letter-spacing:.12em;">Strategy Engine</div>
+    <div style="margin-top:10px; padding:4px 12px; border-radius:99px;
+                background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.2);
+                display:inline-block; font-size:0.68rem; font-weight:600; color:#F5A623;">
+        Block II · Tharparkar
     </div>
-    <hr style="border-color:rgba(255,255,255,0.08); margin: 0 0 16px;">
-    """, unsafe_allow_html=True)
+</div>
+<hr style="border-color:rgba(255,255,255,0.08); margin: 0 0 16px;">
+""", unsafe_allow_html=True)
 
     st.markdown("### 📈 BD & CSR Budget (FY-26)")
     csr_budget = st.slider("Total Allocation (Millions PKR)", 50, 500, 150) * 1_000_000
@@ -393,25 +391,25 @@ with st.sidebar:
 
     # Developer card
     st.markdown("""
-    <div style="
-        background:rgba(212,175,55,0.06); border:1px solid rgba(212,175,55,0.15);
-        border-radius:10px; padding:12px 14px; margin-top:4px;
-    ">
-        <div style="font-family:'DM Sans',sans-serif; font-size:0.72rem; font-weight:700;
-                    color:#D4AF37; text-transform:uppercase; letter-spacing:.08em; margin-bottom:5px;">
-            Developer
-        </div>
-        <div style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:600;
-                    color:#E8EAF2;">Lokesh Kumar</div>
-        <div style="font-size:0.72rem; color:#9BA3BF; margin-top:2px;">
-            Native Context: Mithi, Sindh
-        </div>
+<div style="
+    background:rgba(212,175,55,0.06); border:1px solid rgba(212,175,55,0.15);
+    border-radius:10px; padding:12px 14px; margin-top:4px;
+">
+    <div style="font-family:'DM Sans',sans-serif; font-size:0.72rem; font-weight:700;
+                color:#D4AF37; text-transform:uppercase; letter-spacing:.08em; margin-bottom:5px;">
+        Developer
     </div>
-    <div style="font-family:'DM Sans',sans-serif; font-size:0.7rem; color:#5C6480;
-                margin-top:10px; padding-left:2px;">
-        Strategic Focus: Block II &amp; Surrounding Communities
+    <div style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:600;
+                color:#E8EAF2;">Lokesh Kumar</div>
+    <div style="font-size:0.72rem; color:#9BA3BF; margin-top:2px;">
+        Native Context: Mithi, Sindh
     </div>
-    """, unsafe_allow_html=True)
+</div>
+<div style="font-family:'DM Sans',sans-serif; font-size:0.7rem; color:#5C6480;
+            margin-top:10px; padding-left:2px;">
+    Strategic Focus: Block II &amp; Surrounding Communities
+</div>
+""", unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════
 #  ALGORITHM LOGIC (unchanged)
@@ -460,30 +458,33 @@ st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
 # ═══════════════════════════════════════════════════════════════
 def section_label(text):
     st.markdown(f"""
-    <div style="font-family:'DM Sans',sans-serif; font-size:0.72rem; font-weight:700;
-                color:#5C6480; text-transform:uppercase; letter-spacing:.10em;
-                margin:0 0 12px; padding-left:2px;">
-        {text}
-    </div>""", unsafe_allow_html=True)
+<div style="font-family:'DM Sans',sans-serif; font-size:0.72rem; font-weight:700;
+            color:#5C6480; text-transform:uppercase; letter-spacing:.10em;
+            margin:0 0 12px; padding-left:2px;">
+    {text}
+</div>
+""", unsafe_allow_html=True)
 
 def card_header(title, subtitle=""):
     sub = f"<div style='font-size:.78rem;color:#5C6480;margin-top:2px'>{subtitle}</div>" if subtitle else ""
     st.markdown(f"""
-    <div style="font-family:'DM Sans',sans-serif; font-size:.85rem; font-weight:700;
-                color:#E8EAF2; letter-spacing:.02em; margin-bottom:14px;">
-        {title}{sub}
-    </div>""", unsafe_allow_html=True)
+<div style="font-family:'DM Sans',sans-serif; font-size:.85rem; font-weight:700;
+            color:#E8EAF2; letter-spacing:.02em; margin-bottom:14px;">
+    {title}{sub}
+</div>
+""", unsafe_allow_html=True)
 
 def esg_box(html_content):
     st.markdown(f"""
-    <div style="
-        background: linear-gradient(135deg, rgba(212,175,55,0.07), rgba(5,17,47,0.4));
-        border: 1px solid rgba(212,175,55,0.2); border-left: 3px solid #D4AF37;
-        border-radius: 10px; padding: 16px 20px; margin-top: 16px;
-        font-family: 'DM Sans', sans-serif;
-    ">
-        {html_content}
-    </div>""", unsafe_allow_html=True)
+<div style="
+    background: linear-gradient(135deg, rgba(212,175,55,0.07), rgba(5,17,47,0.4));
+    border: 1px solid rgba(212,175,55,0.2); border-left: 3px solid #D4AF37;
+    border-radius: 10px; padding: 16px 20px; margin-top: 16px;
+    font-family: 'DM Sans', sans-serif;
+">
+    {html_content}
+</div>
+""", unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════
 #  ENTERPRISE TABS
@@ -503,27 +504,27 @@ with tab1:
     section_label("Tharparkar Block II · Intervention Deployment Map")
 
     st.markdown("""
-    <div style="
-        display:flex; gap:20px; margin-bottom:16px; flex-wrap:wrap;
-    ">
-        <div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:#9BA3BF">
-            <span style="width:10px;height:10px;border-radius:50%;background:#3B82F6;display:inline-block"></span>
-            RO Water Plant (Funded)
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:#9BA3BF">
-            <span style="width:10px;height:10px;border-radius:50%;background:#F5A623;display:inline-block"></span>
-            Solar Microgrid (Funded)
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:#9BA3BF">
-            <span style="width:10px;height:10px;border-radius:50%;background:#9CA3AF;display:inline-block"></span>
-            Waitlisted
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:#9BA3BF">
-            <span style="width:10px;height:10px;border-radius:50%;background:#D4AF37;border:2px solid #fff;display:inline-block"></span>
-            Key Landmark
-        </div>
+<div style="
+    display:flex; gap:20px; margin-bottom:16px; flex-wrap:wrap;
+">
+    <div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:#9BA3BF">
+        <span style="width:10px;height:10px;border-radius:50%;background:#3B82F6;display:inline-block"></span>
+        RO Water Plant (Funded)
     </div>
-    """, unsafe_allow_html=True)
+    <div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:#9BA3BF">
+        <span style="width:10px;height:10px;border-radius:50%;background:#F5A623;display:inline-block"></span>
+        Solar Microgrid (Funded)
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:#9BA3BF">
+        <span style="width:10px;height:10px;border-radius:50%;background:#9CA3AF;display:inline-block"></span>
+        Waitlisted
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:#9BA3BF">
+        <span style="width:10px;height:10px;border-radius:50%;background:#D4AF37;border:2px solid #fff;display:inline-block"></span>
+        Key Landmark
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
     m = folium.Map(location=[24.7977, 70.1804], zoom_start=11, tiles="CartoDB positron")
     Fullscreen(position='topright').add_to(m)
@@ -616,17 +617,18 @@ with tab2:
 
         def progress_row(label, pct, color, val_text):
             st.markdown(f"""
-            <div style="margin-bottom:14px">
-                <div style="display:flex;justify-content:space-between;
-                            font-size:.78rem;margin-bottom:5px;">
-                    <span style="color:#9BA3BF;font-weight:500">{label}</span>
-                    <span style="color:#D4AF37;font-weight:600;font-family:'DM Mono',monospace">{val_text}</span>
-                </div>
-                <div style="height:6px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden">
-                    <div style="height:100%;width:{pct}%;background:{color};border-radius:99px;
-                                transition:width .5s ease"></div>
-                </div>
-            </div>""", unsafe_allow_html=True)
+<div style="margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;
+                font-size:.78rem;margin-bottom:5px;">
+        <span style="color:#9BA3BF;font-weight:500">{label}</span>
+        <span style="color:#D4AF37;font-weight:600;font-family:'DM Mono',monospace">{val_text}</span>
+    </div>
+    <div style="height:6px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden">
+        <div style="height:100%;width:{pct}%;background:{color};border-radius:99px;
+                    transition:width .5s ease"></div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
         progress_row("RO Water Plants",  ro_pct,    f"linear-gradient(90deg,{BLUE},{TEAL})",   f"Rs. {ro_capex/1e6:.1f}M")
         progress_row("Solar Microgrids", solar_pct, f"linear-gradient(90deg,{ORANGE},{AMBER})",f"Rs. {solar_capex/1e6:.1f}M")
@@ -634,16 +636,16 @@ with tab2:
 
         cost_per_life = int(total_capex / lives_impacted) if lives_impacted else 0
         esg_box(f"""
-            <div style="font-size:.72rem;font-weight:700;color:#D4AF37;
-                        text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">
-                📌 Cost per Life Impacted
-            </div>
-            <div style="font-size:1.6rem;font-weight:700;color:#F5A623;margin-bottom:4px">
-                Rs. {cost_per_life:,}
-            </div>
-            <div style="font-size:.75rem;color:#9BA3BF">
-                PKR per beneficiary &nbsp;·&nbsp; World Bank ESG threshold: &lt; Rs. 15,000
-            </div>""")
+<div style="font-size:.72rem;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">
+    📌 Cost per Life Impacted
+</div>
+<div style="font-size:1.6rem;font-weight:700;color:#F5A623;margin-bottom:4px">
+    Rs. {cost_per_life:,}
+</div>
+<div style="font-size:.75rem;color:#9BA3BF">
+    PKR per beneficiary &nbsp;·&nbsp; World Bank ESG threshold: &lt; Rs. 15,000
+</div>
+""")
 
     st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
 
@@ -676,14 +678,15 @@ with tab2:
         )
         st.plotly_chart(fig_line, use_container_width=True)
 
-    esg_box(f"""
-        <h4 style="margin:0 0 6px;font-size:.9rem;color:#D4AF37;">🌱 Thar Foundation Impact Statement</h4>
-        <p style="margin:0;font-size:.85rem;color:#9BA3BF;line-height:1.65">
-            By deploying <b style="color:#F5A623">{ro_count} RO Plants</b> and
-            <b style="color:#F5A623">{solar_count} Solar Microgrids</b>, HUBCO directly elevates the living
-            standards of <b style="color:#F5A623">{lives_impacted:,}</b> residents in the Thar Coal Block II
-            radius, securing vital community goodwill and fulfilling corporate ESG mandates.
-        </p>""")
+        esg_box(f"""
+<h4 style="margin:0 0 6px;font-size:.9rem;color:#D4AF37;">🌱 Thar Foundation Impact Statement</h4>
+<p style="margin:0;font-size:.85rem;color:#9BA3BF;line-height:1.65">
+    By deploying <b style="color:#F5A623">{ro_count} RO Plants</b> and
+    <b style="color:#F5A623">{solar_count} Solar Microgrids</b>, HUBCO directly elevates the living
+    standards of <b style="color:#F5A623">{lives_impacted:,}</b> residents in the Thar Coal Block II
+    radius, securing vital community goodwill and fulfilling corporate ESG mandates.
+</p>
+""")
 
 # ───────────────────────────────────────────────────────────────
 #  TAB 3 — COMMUNITY DYNAMICS
@@ -691,10 +694,11 @@ with tab2:
 with tab3:
     section_label("Local Dynamics · Dhatki Multilingual AI (PoC)")
     st.markdown("""
-    <p style="color:#9BA3BF;font-size:.85rem;margin-bottom:18px;line-height:1.65">
-        A Proof of Concept demonstrating how incoming SMS grievances from local communities can be
-        auto-translated for English-speaking management and Chinese CPEC engineering teams.
-    </p>""", unsafe_allow_html=True)
+<p style="color:#9BA3BF;font-size:.85rem;margin-bottom:18px;line-height:1.65">
+    A Proof of Concept demonstrating how incoming SMS grievances from local communities can be
+    auto-translated for English-speaking management and Chinese CPEC engineering teams.
+</p>
+""", unsafe_allow_html=True)
 
     col_inbox, col_output = st.columns([1, 1], gap="large")
 
@@ -742,48 +746,50 @@ with tab3:
             translation_text = result['english'] if "English" in target_lang else result['chinese']
             st.success("✅ Translation and Intent Extraction Complete")
             st.markdown(f"""
-            <div style="background:rgba(212,175,55,0.06);border:1px solid rgba(212,175,55,0.15);
-                        border-radius:10px;padding:14px 16px;margin-bottom:10px">
-                <div style="font-size:.7rem;font-weight:700;color:#D4AF37;
-                            text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px">
-                    Translated Output
-                </div>
-                <div style="font-size:.88rem;color:#E8EAF2;line-height:1.6;font-style:italic">
-                    {translation_text}
-                </div>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-                <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
-                            border-radius:8px;padding:12px 14px">
-                    <div style="font-size:.68rem;font-weight:700;color:#5C6480;
-                                text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Category</div>
-                    <div style="font-size:.82rem;color:#F5A623;font-weight:600">{result['category']}</div>
-                </div>
-                <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
-                            border-radius:8px;padding:12px 14px">
-                    <div style="font-size:.68rem;font-weight:700;color:#5C6480;
-                                text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Priority</div>
-                    <div style="font-size:.82rem;color:#E8EAF2;font-weight:600">{result['priority']}</div>
-                </div>
-                <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
-                            border-radius:8px;padding:12px 14px;grid-column:span 2">
-                    <div style="font-size:.68rem;font-weight:700;color:#5C6480;
-                                text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">
-                        Recommended Action
-                    </div>
-                    <div style="font-size:.82rem;color:#2DD4BF;font-weight:600">{result['action']}</div>
-                </div>
-            </div>""", unsafe_allow_html=True)
+<div style="background:rgba(212,175,55,0.06);border:1px solid rgba(212,175,55,0.15);
+            border-radius:10px;padding:14px 16px;margin-bottom:10px">
+    <div style="font-size:.7rem;font-weight:700;color:#D4AF37;
+                text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px">
+        Translated Output
+    </div>
+    <div style="font-size:.88rem;color:#E8EAF2;line-height:1.6;font-style:italic">
+        {translation_text}
+    </div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
+                border-radius:8px;padding:12px 14px">
+        <div style="font-size:.68rem;font-weight:700;color:#5C6480;
+                    text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Category</div>
+        <div style="font-size:.82rem;color:#F5A623;font-weight:600">{result['category']}</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
+                border-radius:8px;padding:12px 14px">
+        <div style="font-size:.68rem;font-weight:700;color:#5C6480;
+                    text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Priority</div>
+        <div style="font-size:.82rem;color:#E8EAF2;font-weight:600">{result['priority']}</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
+                border-radius:8px;padding:12px 14px;grid-column:span 2">
+        <div style="font-size:.68rem;font-weight:700;color:#5C6480;
+                    text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">
+            Recommended Action
+        </div>
+        <div style="font-size:.82rem;color:#2DD4BF;font-weight:600">{result['action']}</div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
         else:
             st.markdown("""
-            <div style="display:flex;align-items:center;justify-content:center;
-                        height:200px;flex-direction:column;gap:10px;
-                        border:1px dashed rgba(255,255,255,0.1);border-radius:10px">
-                <div style="font-size:2rem">🤖</div>
-                <div style="font-size:.82rem;color:#5C6480">
-                    Select a grievance and click Process
-                </div>
-            </div>""", unsafe_allow_html=True)
+<div style="display:flex;align-items:center;justify-content:center;
+            height:200px;flex-direction:column;gap:10px;
+            border:1px dashed rgba(255,255,255,0.1);border-radius:10px">
+    <div style="font-size:2rem">🤖</div>
+    <div style="font-size:.82rem;color:#5C6480">
+        Select a grievance and click Process
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
     st.divider()
     st.info("💡 **Architecture Note:** This UI currently runs on simulated rule-based data. The architecture is designed to seamlessly integrate with a live Multilingual LLM API once the Dhatki dataset is fully compiled.")
@@ -807,8 +813,8 @@ with tab4:
     with col_info:
         card_header("📋 Audit Protocol", "Standard pre-deployment site checklist")
         st.markdown("""
-        <div style="display:flex;flex-direction:column;gap:8px">
-        """, unsafe_allow_html=True)
+<div style="display:flex;flex-direction:column;gap:8px">
+""", unsafe_allow_html=True)
         checks = [
             ("🌊", "Groundwater Depth Assessment",   "Measure drilling depth and yield"),
             ("📍", "GPS Coordinate Confirmation",     "Match with Block II grid reference"),
@@ -818,14 +824,15 @@ with tab4:
         ]
         for icon, title, sub in checks:
             st.markdown(f"""
-            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);
-                        border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:12px">
-                <span style="font-size:1.2rem">{icon}</span>
-                <div>
-                    <div style="font-size:.82rem;font-weight:600;color:#E8EAF2">{title}</div>
-                    <div style="font-size:.72rem;color:#5C6480;margin-top:1px">{sub}</div>
-                </div>
-            </div>""", unsafe_allow_html=True)
+<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);
+            border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:12px">
+    <span style="font-size:1.2rem">{icon}</span>
+    <div>
+        <div style="font-size:.82rem;font-weight:600;color:#E8EAF2">{title}</div>
+        <div style="font-size:.72rem;color:#5C6480;margin-top:1px">{sub}</div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
 # ───────────────────────────────────────────────────────────────
@@ -834,10 +841,11 @@ with tab4:
 with tab5:
     section_label("Fleet Safety & Inclusion Hub")
     st.markdown("""
-    <p style="color:#9BA3BF;font-size:.85rem;margin-bottom:18px">
-        Dedicated monitoring and emergency response interface for the
-        <b style="color:#E8EAF2">Women Dump Truck Drivers Initiative</b> at Thar Coal Block II.
-    </p>""", unsafe_allow_html=True)
+<p style="color:#9BA3BF;font-size:.85rem;margin-bottom:18px">
+    Dedicated monitoring and emergency response interface for the
+    <b style="color:#E8EAF2">Women Dump Truck Drivers Initiative</b> at Thar Coal Block II.
+</p>
+""", unsafe_allow_html=True)
 
     # Fleet KPIs with custom styling
     fa, fb, fc = st.columns(3)
@@ -859,25 +867,26 @@ with tab5:
 
         if sos_active:
             st.markdown("""
-            <div style="
-                background:rgba(220,38,38,0.10);border:1px solid rgba(248,113,113,0.3);
-                border-radius:10px;padding:18px 20px;animation: pulse 2s infinite;
-            ">
-                <div style="font-size:.95rem;font-weight:800;color:#F87171;
-                            margin-bottom:12px;display:flex;align-items:center;gap:8px">
-                    ⚠️ URGENT SOS RECEIVED — ACTIVE INCIDENT
-                </div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-                    <div><div style="font-size:.68rem;color:#5C6480;margin-bottom:2px">Driver</div>
-                         <div style="font-size:.85rem;color:#E8EAF2;font-weight:600">Samina B. (ID: T-409)</div></div>
-                    <div><div style="font-size:.68rem;color:#5C6480;margin-bottom:2px">Vehicle</div>
-                         <div style="font-size:.85rem;color:#E8EAF2;font-weight:600">60-Ton Dump Truck #42</div></div>
-                    <div><div style="font-size:.68rem;color:#5C6480;margin-bottom:2px">Location</div>
-                         <div style="font-size:.85rem;color:#E8EAF2;font-weight:600">Block II, Sector 4, Decline Ramp</div></div>
-                    <div><div style="font-size:.68rem;color:#5C6480;margin-bottom:2px">Trigger Type</div>
-                         <div style="font-size:.85rem;color:#F87171;font-weight:600">Cabin Panic Button</div></div>
-                </div>
-            </div>""", unsafe_allow_html=True)
+<div style="
+    background:rgba(220,38,38,0.10);border:1px solid rgba(248,113,113,0.3);
+    border-radius:10px;padding:18px 20px;animation: pulse 2s infinite;
+">
+    <div style="font-size:.95rem;font-weight:800;color:#F87171;
+                margin-bottom:12px;display:flex;align-items:center;gap:8px">
+        ⚠️ URGENT SOS RECEIVED — ACTIVE INCIDENT
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div><div style="font-size:.68rem;color:#5C6480;margin-bottom:2px">Driver</div>
+             <div style="font-size:.85rem;color:#E8EAF2;font-weight:600">Samina B. (ID: T-409)</div></div>
+        <div><div style="font-size:.68rem;color:#5C6480;margin-bottom:2px">Vehicle</div>
+             <div style="font-size:.85rem;color:#E8EAF2;font-weight:600">60-Ton Dump Truck #42</div></div>
+        <div><div style="font-size:.68rem;color:#5C6480;margin-bottom:2px">Location</div>
+             <div style="font-size:.85rem;color:#E8EAF2;font-weight:600">Block II, Sector 4, Decline Ramp</div></div>
+        <div><div style="font-size:.68rem;color:#5C6480;margin-bottom:2px">Trigger Type</div>
+             <div style="font-size:.85rem;color:#F87171;font-weight:600">Cabin Panic Button</div></div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
             if st.button("🚑 Dispatch Rapid Response Team"):
                 with st.spinner("Pinging nearest security vehicle..."):
@@ -896,12 +905,13 @@ with tab5:
         ]
         for icon, title, desc in features:
             st.markdown(f"""
-            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);
-                        border-radius:8px;padding:12px 14px;margin-bottom:8px;
-                        display:flex;align-items:flex-start;gap:12px">
-                <span style="font-size:1.3rem;margin-top:1px">{icon}</span>
-                <div>
-                    <div style="font-size:.85rem;font-weight:700;color:#E8EAF2;margin-bottom:2px">{title}</div>
-                    <div style="font-size:.78rem;color:#9BA3BF;line-height:1.5">{desc}</div>
-                </div>
-            </div>""", unsafe_allow_html=True)
+<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);
+            border-radius:8px;padding:12px 14px;margin-bottom:8px;
+            display:flex;align-items:flex-start;gap:12px">
+    <span style="font-size:1.3rem;margin-top:1px">{icon}</span>
+    <div>
+        <div style="font-size:.85rem;font-weight:700;color:#E8EAF2;margin-bottom:2px">{title}</div>
+        <div style="font-size:.78rem;color:#9BA3BF;line-height:1.5">{desc}</div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
